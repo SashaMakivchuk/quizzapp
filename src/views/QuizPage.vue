@@ -36,10 +36,9 @@ export default {
 
   methods: {
     resetTimer() {
-      // Reset the timer to the initial time
       if (this.$refs.timer) {
         console.log("Resetting Timer...");
-        this.$refs.timer.resetTimer(); // Reset the timer for the next question
+        this.$refs.timer.resetTimer();
       }
     },
     submitAnswer(selectedAnswer) {
@@ -55,7 +54,6 @@ export default {
 
     nextQuestion() {
       console.log("nextQuestion triggered");
-      // Ensure `questions` and `currentQuestion` are defined before proceeding
       if (!this.questions || !this.currentQuestion) {
         console.warn("Questions or current question is undefined.");
         return;
@@ -63,32 +61,27 @@ export default {
 
       const currentIndex = this.questions.indexOf(this.currentQuestion);
 
-      // If currentIndex is -1, it means `currentQuestion` is not found in `questions`
       if (currentIndex === -1) {
         console.warn("Current question not found in question list.");
         return;
       }
 
-      // Check if there are more questions
       if (currentIndex < this.questions.length - 1) {
-        // Move to the next question
         this.currentQuestion = this.questions[currentIndex + 1];
-        this.answered = false; // Reset answered state
+        this.answered = false;
         this.resetTimer();
       } else {
-        // If no more questions, complete the quiz
         this.completeQuiz();
       }
     },
     completeQuiz() {
-      // Handle quiz completion, e.g., show results or navigate to another page
       console.log("Quiz completed!");
-      this.$router.push("/results"); // Redirect to a results page
+      this.$router.push("/results");
     },
     onTimeout() {
       console.log("Timeout reached");
       if (!this.answered && this.currentQuestion) {
-        this.submitAnswer(null); // Submits a `null` answer if unanswered
+        this.submitAnswer(null);
       }
       this.nextQuestion();
     },

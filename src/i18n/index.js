@@ -6,8 +6,8 @@ import es from "@/locales/es.json";
 import uk from "@/locales/uk.json";
 
 const i18n = createI18n({
-  legacy: false, // Ensure Vue 3's Composition API mode is enabled
-  locale: "en", // Default language
+  legacy: false,
+  locale: "en",
   messages: {
     en,
     fr,

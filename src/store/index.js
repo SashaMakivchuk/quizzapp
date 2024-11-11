@@ -5,13 +5,13 @@ const store = createStore({
     user: { name: null },
     selectedCategory: null,
     score: 0,
-    difficulty: "medium", // Default difficulty level
+    difficulty: "medium",
     settings: JSON.parse(localStorage.getItem("settings")) || {
       language: "en",
       theme: "light",
       timer: 30,
     },
-    questions: [], // Add a state property to store questions
+    questions: [],
     currentQuestionIndex: 0,
   },
   mutations: {
@@ -32,14 +32,13 @@ const store = createStore({
       localStorage.setItem("settings", JSON.stringify(settings));
     },
     setQuestions(state, questions) {
-      state.questions = questions; // Set the questions in the state
+      state.questions = questions;
     },
     setCurrentQuestionIndex(state, index) {
-      state.currentQuestionIndex = index; // Set the current question index
+      state.currentQuestionIndex = index;
     },
   },
   actions: {
-    // Fetch questions based on selected category and difficulty
     async fetchQuestions({ commit, state }, category) {
       const url = `https://opentdb.com/api.php?amount=15&category=${category}&difficulty=${state.difficulty}&type=multiple`;
       try {
@@ -51,10 +50,10 @@ const store = createStore({
             ...question.incorrect_answers,
             question.correct_answer,
           ];
-          allAnswers.sort(() => Math.random() - 0.5); // Shuffle answers
+          allAnswers.sort(() => Math.random() - 0.5);
           return { ...question, answers: allAnswers };
         });
-        commit("setQuestions", questions); // Commit the questions to the state
+        commit("setQuestions", questions);
       } catch (error) {
         console.error("Error fetching questions:", error);
       }

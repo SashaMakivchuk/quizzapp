@@ -1,336 +1,384 @@
 /* General Layout */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Main App Layout */
-  .app {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  /* Header Styling */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s;
+}
+
+/* Theme Colors */
+$light-theme: (
+  background-color: #f2f2f2,
+  text-color: #333,
+  header-background: #4caf50,
+  header-text: #fff,
+  category-bg: #388e3c,
+  button-bg: #66bb6a,
+  button-hover: #81c784,
+  button-active: #388e3c,
+  answer-bg: #66bb6a,
+  answer-hover: #81c784,
+  answer-active: #388e3c,
+  question-bg: white,
+  results-bg: white,
+  correct-color: #66bb6a,
+  incorrect-color: #f44336
+);
+
+$dark-theme: (
+  background-color: #121212,
+  text-color: #e0e0e0,
+  header-background: #333,
+  header-text: #fff,
+  category-bg: #2e7d32,
+  button-bg: #388e3c,
+  button-hover: #4caf50,
+  button-active: #225225,
+  answer-bg: #388e3c,
+  answer-hover: #4caf50,
+  answer-active: #225225,
+  question-bg: #1e1e1e,
+  results-bg: #1e1e1e,
+  correct-color: #66bb6a,
+  incorrect-color: #f44336
+);
+
+/* Mixin to apply theme variables */
+@mixin theme($theme) {
+  background-color: map-get($theme, background-color);
+  color: map-get($theme, text-color);
+
   header {
-    background-color: #4caf50;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    font-size: 24px;
+    background-color: map-get($theme, header-background);
+    color: map-get($theme, header-text);
   }
-  
-  header h1 {
-    margin: 0;
-  }
-  
-  /* Categories Section */
-  .categories-section {
-    padding: 20px;
-    margin-top: 20px; /* Add space between header and category section */
-  }
-  
-  /* Category Title */
-  .categories-section h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #388e3c;
-  }
-  
-  /* Categories Grid */
-  .categories {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px; /* Space between blocks */
-    padding: 0;
-    flex-grow: 1;
-    justify-items: center; /* Center content horizontally */
-  }
-  
-  .category {
-    background-color: #388e3c; /* Darker green background for blocks */
-    color: white;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    width: 100%; /* Full width for responsiveness */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  
-    &:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-  
-    h3 {
-      margin-bottom: 15px;
-      font-size: 20px;
-    }
-  
-    button {
-      background-color: #66bb6a;
-      padding: 10px 20px;
-      color: white;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s;
-  
-      &:hover {
-        background-color: #81c784;
-      }
-  
-      &:active {
-        background-color: #388e3c;
-      }
-    }
-  }
-  
-  /* Sidebar Settings */
-  .settings {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 250px;
-    background-color: #388e3c;
-    padding: 20px;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    z-index: 100;
-  
-    select,
-    input {
-      padding: 8px;
-      margin: 5px 0;
-      border: 1px solid #388e3c;
-      background-color: #f2f2f2;
-      color: #333;
-      border-radius: 4px;
-  
-      &:focus {
-        outline: none;
-        border-color: #4caf50;
-      }
-    }
-  
-    button {
-      align-self: flex-end;
-      background-color: transparent;
-      color: #333;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
-  
-      &:hover {
-        color: #4caf50;
-      }
-    }
-  }
-  
-  /* Filter Section */
-  .filter {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px;
-  
-    label {
-      font-size: 16px;
-      margin-bottom: 5px;
-    }
-  
-    input {
-      padding: 8px;
-      border-radius: 4px;
-      border: 1px solid #388e3c;
-      width: 100%;
-      max-width: 300px;
-      margin-bottom: 20px;
-    }
-  }
-  
-  /* Mobile Responsiveness */
-  @media (max-width: 768px) {
-    .categories {
-      grid-template-columns: 1fr; /* Single column on smaller screens */
-    }
-  
-    .settings {
-      position: relative;
-      width: 100%;
-      box-shadow: none;
-    }
-  
-    .category {
-      width: 100%;
-    }
-  
-    header {
-      padding: 10px;
-      font-size: 18px;
-    }
-  
-    button {
-      padding: 12px 24px;
-    }
-  }
-  
-  .questions-section {
-    padding: 20px;
-    margin-top: 20px;
-  }
-  
-  .questions-section h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #388e3c;
-  }
-  
-  /* Each Question Block */
-  .question {
-    background-color: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .question h3 {
-    margin: 0;
-    font-size: 18px;
-    color: #388e3c;
-  }
-  
-  .answer-options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .answer-option {
-    background-color: #66bb6a;
-    color: white;
-    padding: 10px;
-    border-radius: 4px;
-    border: none;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .answer-option:hover {
-    background-color: #81c784;
-  }
-  
-  .answer-option:active {
-    background-color: #388e3c;
-  }
-  
-  /* Answer input (for multiple choice) */
-  input[type="radio"],
-  input[type="checkbox"] {
-    margin-right: 10px;
-  }
-  
-  label {
-    font-size: 16px;
-  }
-  
-  /* Selected Answer */
-  .selected {
-    background-color: #388e3c;
-  }
-  
-  /* Submit Button */
-  .submit-btn {
-    align-self: center;
-    background-color: #225225;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .submit-btn:hover {
-    background-color: #81c784;
-  }
-  
-  .submit-btn:active {
-    background-color: #388e3c;
-  }
-  .results-page {
-    padding: 20px;
-    margin-top: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
+
+  .categories-section h2,
+  .questions-section h2,
   .results-page h2 {
-    text-align: center;
-    font-size: 24px;
-    color: #388e3c;
-    margin-bottom: 20px;
+    color: map-get($theme, category-bg);
   }
-  
-  .results-page .result {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    font-size: 18px;
+
+  .category {
+    background-color: map-get($theme, category-bg);
   }
-  
-  .results-page .result span {
-    color: #388e3c;
+
+  .question {
+    background-color: map-get($theme, question-bg);
   }
-  
-  .results-page .correct {
-    color: #66bb6a;
-  }
-  
-  .results-page .incorrect {
-    color: #f44336;
-  }
-  
-  .results-page .score {
-    text-align: center;
-    font-size: 24px;
-    color: #388e3c;
-    margin-top: 20px;
-  }
-  
-  /* Retry Button */
+
+  button,
+  .submit-btn,
   .retry-btn {
-    align-self: center;
-    background-color: #388e3c;
-    color: white;
-    padding: 12px 24px;
-    border: none;
+    background-color: map-get($theme, button-bg);
+
+    &:hover {
+      background-color: map-get($theme, button-hover);
+    }
+
+    &:active {
+      background-color: map-get($theme, button-active);
+    }
+  }
+
+  .answer-option {
+    background-color: map-get($theme, answer-bg);
+
+    &:hover {
+      background-color: map-get($theme, answer-hover);
+    }
+
+    &:active {
+      background-color: map-get($theme, answer-active);
+    }
+  }
+
+  .results-page {
+    background-color: map-get($theme, results-bg);
+  }
+
+  .correct {
+    color: map-get($theme, correct-color);
+  }
+
+  .incorrect {
+    color: map-get($theme, incorrect-color);
+  }
+}
+
+/* Apply themes using data-theme attribute */
+[data-theme="light"] {
+  @include theme($light-theme);
+}
+
+[data-theme="dark"] {
+  @include theme($dark-theme);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 16px;
+  color: map-get($light-theme, text-color);
+
+  label {
+    cursor: pointer;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+    background-color: #ccc;
+    border-radius: 25px;
+    transition: background-color 0.3s;
+
+    &:before {
+      content: "";
+      position: absolute;
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      background-color: white;
+      left: 2px;
+      bottom: 2px;
+      transition: transform 0.3s;
+    }
+  }
+
+  input:checked + .slider {
+    background-color: #4caf50;
+
+    &:before {
+      transform: translateX(24px);
+    }
+  }
+}
+
+/* Sidebar Settings */
+.settings {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  background-color: #388e3c;
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 100;
+
+  select,
+  input[type="text"] {
+    padding: 8px;
+    margin-top: 8px;
+    border: 1px solid #4caf50;
+    background-color: #fff;
+    color: #333;
     border-radius: 4px;
+
+    &:focus {
+      outline: none;
+      border-color: #66bb6a;
+    }
+  }
+}
+
+/* Header Styling */
+header {
+  background-color: #4caf50;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+/* Categories Section */
+.categories-section {
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.categories-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #388e3c;
+}
+
+/* Categories Grid */
+.categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 0;
+  justify-items: center;
+}
+
+.category {
+  background-color: #388e3c;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  h3 {
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+
+  button {
+    background-color: #66bb6a;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 4px;
+    border: none;
     cursor: pointer;
     transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #81c784;
+    }
+
+    &:active {
+      background-color: #388e3c;
+    }
   }
-  
-  .retry-btn:hover {
-    background-color: #66bb6a;
-  }
-  
-  .retry-btn:active {
+}
+
+/* Questions Section */
+.questions-section {
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.questions-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #388e3c;
+}
+
+/* Question Block */
+.question {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.question h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #388e3c;
+}
+
+/* Answer Options */
+.answer-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.answer-option {
+  background-color: #66bb6a;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
     background-color: #81c784;
   }
-  
+
+  &:active {
+    background-color: #388e3c;
+  }
+}
+
+/* Submit Button */
+.submit-btn {
+  align-self: center;
+  background-color: #225225;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #81c784;
+  }
+
+  &:active {
+    background-color: #388e3c;
+  }
+}
+
+/* Results Page */
+.results-page {
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.results-page h2 {
+  text-align: center;
+  font-size: 24px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .categories {
+    grid-template-columns: 1fr;
+  }
+
+  .settings {
+    position: relative;
+    width: 100%;
+    box-shadow: none;
+    padding: 20px;
+  }
+
+  .theme-toggle {
+    justify-content: center;
+  }
+}

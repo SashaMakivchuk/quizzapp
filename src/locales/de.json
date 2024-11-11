@@ -1,0 +1,22 @@
+{
+    "quizApp": {
+      "title": "Quiz-App",
+      "settings": "Einstellungen",
+      "startQuiz": "Quiz starten",
+      "language": "Sprache",
+      "timer": "Timer (Sekunden)",
+      "theme": "Thema",
+      "light": "Hell",
+      "dark": "Dunkel",
+      "score": "Dein Punktestand: {score}",
+      "playAgain": "Nochmal spielen",
+      "difficulty": "Schwierigkeitsgrad",
+      "easy": "Einfach",
+      "medium": "Mittel",
+      "hard": "Schwierig",
+      "filter": "Kategorien Suchen",
+      "categories": "Kategorien"
+    }
+  }
+  
+  

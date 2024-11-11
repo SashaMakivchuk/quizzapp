@@ -1,0 +1,21 @@
+{
+    "quizApp": {
+      "title": "Quiz App",
+      "settings": "Settings",
+      "startQuiz": "Start Quiz",
+      "language": "Language",
+      "timer": "Timer (seconds)",
+      "theme": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "score": "Your Score: {score}",
+      "playAgain": "Play Again",
+      "difficulty": "Difficulty",
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard",
+      "filter": "Search Categories",
+      "categories": "Categories"
+    }
+  }
+  

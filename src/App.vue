@@ -1,30 +1,47 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div :class="`app ${theme}`">
+    <HeaderItem @openSettings="showSettings = true" />
+    <router-view />
+    <SettingsItem v-if="showSettings" @close="toggleSettings" />
+  </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { mapState } from "vuex";
+import HeaderItem from "./components/HeaderItem.vue";
+import SettingsItem from "./components/SettingsItem.vue";
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+export default {
+  components: {
+    HeaderItem,
+    SettingsItem,
+  },
+  data() {
+    return {
+      showSettings: false,
+    };
+  },
+  computed: {
+    ...mapState(["settings"]),
+    theme() {
+      return this.settings.theme || "light";
+    },
+  },
+  watch: {
+    theme(newTheme) {
+      document.documentElement.setAttribute("data-theme", newTheme);
+    },
+  },
+  created() {
+    this.applyTheme();
+  },
+  methods: {
+    toggleSettings() {
+      this.showSettings = !this.showSettings;
+    },
+    applyTheme() {
+      document.documentElement.setAttribute("data-theme", this.theme);
+    },
+  },
+};
+</script>

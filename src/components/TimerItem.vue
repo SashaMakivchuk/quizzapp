@@ -1,6 +1,6 @@
 <template>
   <div class="timer-circle">
-    <svg class="progress-ring" width="120" height="120">
+    <svg class="progress-ring" width="50" height="50">
       <circle
         ref="progressCircle"
         class="progress-ring__circle"
